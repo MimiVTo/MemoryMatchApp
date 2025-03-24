@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  FinishScreen.swift
 //  MemoryMatch
 //
 //  Created by StudentPM on 3/24/25.
@@ -7,25 +7,24 @@
 
 import SwiftUI
 
-struct ContentView: View {
-    
+struct FinishScreen: View {
     var body: some View {
         NavigationView{
-            VStack {
+            VStack{
                 ZStack{
-                    Image("background")
+                    Circle()
+                        .foregroundColor(Color(hex: "fdaea9"))
+                        .position(x: 50, y: 100)
+                    Circle()
+                        .foregroundColor(Color(hex: "dde59b"))
+                        .position(x: 350, y: 700)
                     VStack{
-                        Spacer()
-                        Text("EmojiMatch")
-                            .foregroundColor(.white)
-                            .fontWeight(.bold)
+                        Image("smile")
+                        Text("Great Job!")
                             .font(.largeTitle)
-                            .padding()
-                            .background(.orange)
-                            .cornerRadius(10)
-                        Spacer()
-                        NavigationLink(destination: GameScreen()){
-                            Text("Start")
+                            .fontWeight(.semibold)
+                        NavigationLink(destination: ContentView()){
+                            Text("Play Again")
                                 .foregroundColor(.white)
                                 .fontWeight(.bold)
                                 .font(.largeTitle)
@@ -33,7 +32,6 @@ struct ContentView: View {
                                 .background(.blue)
                                 .cornerRadius(10)
                         }
-                        Spacer()
                     }
                 }
             }
@@ -42,5 +40,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    FinishScreen()
 }
