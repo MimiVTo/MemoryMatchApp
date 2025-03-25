@@ -13,6 +13,7 @@ struct FinishScreen: View {
             VStack{
                 ZStack{
                     Circle()
+                        .navigationBarBackButtonHidden()
                         .foregroundColor(Color(hex: "fdaea9"))
                         .position(x: 50, y: 100)
                     Circle()

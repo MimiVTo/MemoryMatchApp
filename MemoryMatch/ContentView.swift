@@ -14,6 +14,7 @@ struct ContentView: View {
             VStack {
                 ZStack{
                     Image("background")
+                        .navigationBarBackButtonHidden()
                     VStack{
                         Spacer()
                         Text("EmojiMatch")
