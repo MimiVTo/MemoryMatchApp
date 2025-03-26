@@ -10,9 +10,10 @@ import SwiftUI
 struct GameScreen: View {
 
     //VARIABLES -----------------------------------------
-    @State var cardsFlipped: [Bool] = Array(repeating: false, count: 16)
-    @State var emojis = ["😀", "😀" ,"😁", "😁", "😂", "😂", "🤣", "🤣", "😃", "😃", "😄", "😄",]
+    @State var cardsFlipped: [Bool] = Array(repeating: false, count: 12)
+    @State var emojis: [String] = ["😀", "😀" ,"😁", "😁", "😂", "😂", "🤣", "🤣", "😃", "😃", "😄", "😄",]
     @State private var pickOne: Int = -1
+    @State var firstPicked: Bool = false
     @State private var pickTwo: Int = -1
     @State private var score: Int = 0
     @State private var gameFinished: Bool = false
@@ -40,11 +41,14 @@ struct GameScreen: View {
                     
                     LazyVGrid(columns: rows){
                         ForEach(emojis.indices, id: \.self){i in
-                            Button(action: cardClicked, label: {
-                                Text(emojis[i])
-                                    .font(.largeTitle)
-                                    .padding()
-                            })
+                            VStack{
+                                Button(action: {cardClicked(button: i)}, label: {
+                                    Card(emoji: emojis[i], isFlipped: cardsFlipped[i])
+//                                    Text(emojis[i])
+//                                        .font(.largeTitle)
+//                                        .padding()
+                                })
+                            }
                         }
                     }
                 }
@@ -52,12 +56,57 @@ struct GameScreen: View {
         }
     }
     
-    func cardClicked(){
-        print("Clicked!")
+    
+    func cardClicked(button: Int){
+
+        if firstPicked == false{
+            //Sets first one picked
+            pickOne = button
+            print("First is " + ("\(pickOne)"))
+            firstPicked = true
+            cardsFlipped[button] = true
+        }
+        else{
+            pickTwo = button
+            print("Second is " + ("\(pickTwo)"))
+            cardsFlipped[button] = true
+        }
+        
+        if pickOne == pickTwo{
+            print("true")
+            score += 1
+            firstPicked = false
+        }
     }
+    
+    
 }
 
-
+struct Card: View{
+    var emoji: String = ""
+    var isFlipped: Bool = true
+    
+    var body: some View{
+        ZStack{
+            Text(emoji)
+                .font(.largeTitle)
+                .padding()
+            Rectangle()
+                .fill(isFlipped == false ? Color.blue : Color.white.opacity(0.01))
+                .frame(width: 80)
+        }
+    }
+    
+//    func backgroundColor(item: String) -> Color{
+//        if isFlipped == false{
+//            return .blue
+//            isFlipped = true
+//        }
+//        else{
+//            return .clear
+//        }
+//    }
+}
 
 #Preview {
     GameScreen()
