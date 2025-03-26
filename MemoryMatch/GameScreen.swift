@@ -25,59 +25,61 @@ struct GameScreen: View {
     ]
     
     var body: some View {
-        VStack{
-            ZStack{
-                Circle()
-                    .foregroundColor(Color(hex: "fdaea9"))
-                    .position(x: 50, y: 100)
-                    .navigationBarBackButtonHidden()
-                Circle()
-                    .foregroundColor(Color(hex: "dde59b"))
-                    .position(x: 350, y: 700)
-                VStack{
-                    Text("Current Score: \(score)")
-                        .font(.largeTitle)
-                        .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                    
-                    LazyVGrid(columns: rows){
-                        ForEach(emojis.indices, id: \.self){i in
-                            VStack{
-                                Button(action: {cardClicked(button: i)}, label: {
-                                    Card(emoji: emojis[i], isFlipped: cardsFlipped[i])
-//                                    Text(emojis[i])
-//                                        .font(.largeTitle)
-//                                        .padding()
+        NavigationView{
+            VStack{
+                ZStack{
+                    Circle()
+                        .foregroundColor(Color(hex: "fdaea9"))
+                        .position(x: 50, y: 100)
+                        .navigationBarBackButtonHidden()
+                    Circle()
+                        .foregroundColor(Color(hex: "dde59b"))
+                        .position(x: 350, y: 700)
+                    VStack{
+                        Text("Current Score: \(score)")
+                            .font(.largeTitle)
+                            .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                        
+                        LazyVGrid(columns: rows){
+                            ForEach(emojis.indices, id: \.self){i in
+                                VStack{
+                                    Button(action: {cardClicked(button: i)}, label: {
+                                        Card(emoji: emojis[i], isFlipped: cardsFlipped[i])
+    //                                    Text(emojis[i])
+    //                                        .font(.largeTitle)
+    //                                        .padding()
+                                    })
+                                }
+                            }
+                        }
+                        HStack{
+                            if score == 6{
+                                NavigationLink(destination: FinishScreen()){
+                                    Text("Next")
+                                        .foregroundColor(.white)
+                                        .fontWeight(.bold)
+                                        .font(.largeTitle)
+                                        .padding()
+                                        .background(.blue)
+                                        .cornerRadius(10)
+                                }
+                                Button(action: {
+                                    score = 0
+                                    pickOne = -1
+                                    pickTwo = -1
+                                }, label: {
+                                    Text("Retry")
+                                        .foregroundColor(.white)
+                                        .fontWeight(.bold)
+                                        .font(.largeTitle)
+                                        .padding()
+                                        .background(.blue)
+                                        .cornerRadius(10)
                                 })
                             }
                         }
-                    }
-                    HStack{
-                        if score == 6{
-                            NavigationLink(destination: FinishScreen()){
-                                Text("Next")
-                                    .foregroundColor(.white)
-                                    .fontWeight(.bold)
-                                    .font(.largeTitle)
-                                    .padding()
-                                    .background(.blue)
-                                    .cornerRadius(10)
-                            }
-                            Button(action: {
-                                score = 0
-                                pickOne = -1
-                                pickTwo = -1
-                            }, label: {
-                                Text("Retry")
-                                    .foregroundColor(.white)
-                                    .fontWeight(.bold)
-                                    .font(.largeTitle)
-                                    .padding()
-                                    .background(.blue)
-                                    .cornerRadius(10)
-                            })
-                        }
-                    }
 
+                    }
                 }
             }
         }
