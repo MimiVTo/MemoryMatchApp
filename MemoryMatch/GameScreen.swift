@@ -51,6 +51,33 @@ struct GameScreen: View {
                             }
                         }
                     }
+                    HStack{
+                        if score == 6{
+                            NavigationLink(destination: FinishScreen()){
+                                Text("Next")
+                                    .foregroundColor(.white)
+                                    .fontWeight(.bold)
+                                    .font(.largeTitle)
+                                    .padding()
+                                    .background(.blue)
+                                    .cornerRadius(10)
+                            }
+                            Button(action: {
+                                score = 0
+                                pickOne = -1
+                                pickTwo = -1
+                            }, label: {
+                                Text("Retry")
+                                    .foregroundColor(.white)
+                                    .fontWeight(.bold)
+                                    .font(.largeTitle)
+                                    .padding()
+                                    .background(.blue)
+                                    .cornerRadius(10)
+                            })
+                        }
+                    }
+
                 }
             }
         }
@@ -70,13 +97,20 @@ struct GameScreen: View {
             pickTwo = button
             print("Second is " + ("\(pickTwo)"))
             cardsFlipped[button] = true
+            
+            
+            if emojis[pickOne] == emojis[pickTwo]{
+                print("true")
+                score += 1
+                firstPicked = false
+            }
+            else{
+                cardsFlipped[pickOne] = false
+                cardsFlipped[pickTwo] = false
+                firstPicked = false
+            }
         }
-        
-        if pickOne == pickTwo{
-            print("true")
-            score += 1
-            firstPicked = false
-        }
+
     }
     
     
