@@ -111,9 +111,12 @@ struct GameScreen: View {
                 firstPicked = false
             }
             else{
-                cardsFlipped[pickOne] = false
-                cardsFlipped[pickTwo] = false
-                firstPicked = false
+                DispatchQueue.main.asyncAfter(deadline: .now()+1){
+                    cardsFlipped[pickOne] = false
+                    cardsFlipped[pickTwo] = false
+                    firstPicked = false
+                }
+
             }
         }
 
@@ -131,9 +134,11 @@ struct Card: View{
             Text(emoji)
                 .font(.largeTitle)
                 .padding()
+            
             Rectangle()
                 .fill(isFlipped == false ? Color.blue : Color.white.opacity(0.01))
-                .frame(width: 80)
+                .frame(width: 80, height: 80)
+                .cornerRadius(10)
         }
     }
     
