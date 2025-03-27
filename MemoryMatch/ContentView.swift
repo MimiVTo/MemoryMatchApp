@@ -25,8 +25,12 @@ struct ContentView: View {
                             .background(.orange)
                             .cornerRadius(10)
                         Spacer()
-                        NavigationLink(destination: GameScreen()){
+                        NavigationLink(destination: {
+                            GameScreen()
+                                .navigationBarBackButtonHidden()
+                        }){
                             Text("Start")
+                                .navigationBarBackButtonHidden()
                                 .foregroundColor(.white)
                                 .fontWeight(.bold)
                                 .font(.largeTitle)

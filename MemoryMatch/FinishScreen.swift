@@ -24,7 +24,10 @@ struct FinishScreen: View {
                         Text("Great Job!")
                             .font(.largeTitle)
                             .fontWeight(.semibold)
-                        NavigationLink(destination: ContentView()){
+                        NavigationLink(destination: {
+                            ContentView()
+                                .navigationBarBackButtonHidden()
+                        }){
                             Text("Play Again")
                                 .foregroundColor(.white)
                                 .fontWeight(.bold)
@@ -32,6 +35,7 @@ struct FinishScreen: View {
                                 .padding()
                                 .background(.blue)
                                 .cornerRadius(10)
+                                .navigationBarBackButtonHidden()
                         }
                     }
                 }

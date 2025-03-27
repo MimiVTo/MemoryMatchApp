@@ -11,7 +11,7 @@ struct GameScreen: View {
 
     //VARIABLES -----------------------------------------
     @State var cardsFlipped: [Bool] = Array(repeating: false, count: 12)
-    @State var emojis: [String] = ["😀", "😀" ,"😁", "😁", "😂", "😂", "🤣", "🤣", "😃", "😃", "😄", "😄",]
+    @State var emojis: [String] = ["😀", "😀" ,"😁", "😁", "😂", "😂", "🤣", "🤣", "😃", "😃", "😄", "😄",].shuffled()
     @State private var pickOne: Int = -1
     @State var firstPicked: Bool = false
     @State private var pickTwo: Int = -1
@@ -31,7 +31,6 @@ struct GameScreen: View {
                     Circle()
                         .foregroundColor(Color(hex: "fdaea9"))
                         .position(x: 50, y: 100)
-                        .navigationBarBackButtonHidden()
                     Circle()
                         .foregroundColor(Color(hex: "dde59b"))
                         .position(x: 350, y: 700)
@@ -53,8 +52,11 @@ struct GameScreen: View {
                             }
                         }
                         HStack{
-                            if score == 6{
-                                NavigationLink(destination: FinishScreen()){
+                            if score >= 6{
+                                NavigationLink(destination: {
+                                    FinishScreen()
+                                        .navigationBarBackButtonHidden()
+                                }){
                                     Text("Next")
                                         .foregroundColor(.white)
                                         .fontWeight(.bold)
@@ -62,11 +64,13 @@ struct GameScreen: View {
                                         .padding()
                                         .background(.blue)
                                         .cornerRadius(10)
+                                        .navigationBarBackButtonHidden()
                                 }
                                 Button(action: {
                                     score = 0
                                     pickOne = -1
                                     pickTwo = -1
+                                    cardsFlipped = Array(repeating: false, count: 12)
                                 }, label: {
                                     Text("Retry")
                                         .foregroundColor(.white)
