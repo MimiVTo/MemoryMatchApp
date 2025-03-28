@@ -13,10 +13,13 @@ struct ContentView: View {
         NavigationView{
             VStack {
                 ZStack{
+                    //Adding the background of the app
                     Image("background")
                         .navigationBarBackButtonHidden()
                     VStack{
+                        //Spacer to keep the space together
                         Spacer()
+                        //Putting the title
                         Text("EmojiMatch")
                             .foregroundColor(.white)
                             .fontWeight(.bold)
@@ -24,11 +27,14 @@ struct ContentView: View {
                             .padding()
                             .background(.orange)
                             .cornerRadius(10)
+                        //Space between the title and button
                         Spacer()
+                        //Link to the next page which is the game page
                         NavigationLink(destination: {
                             GameScreen()
                                 .navigationBarBackButtonHidden()
                         }){
+                            //Designing the button
                             Text("Start")
                                 .navigationBarBackButtonHidden()
                                 .foregroundColor(.white)
@@ -38,6 +44,7 @@ struct ContentView: View {
                                 .background(.blue)
                                 .cornerRadius(10)
                         }
+                        //Spacer to keep the things together
                         Spacer()
                     }
                 }
