@@ -14,6 +14,7 @@ struct GameScreen: View {
     @State var emojis: [String] = ["😀", "😀" ,"😁", "😁", "😂", "😂", "🤣", "🤣", "😃", "😃", "😄", "😄",].shuffled()
     @State private var pickOne: Int = -1
     @State var firstPicked: Bool = false
+    @State var twoPicked: Bool = false
     @State private var pickTwo: Int = -1
     @State private var score: Int = 0
     @State private var gameFinished: Bool = false
@@ -52,7 +53,7 @@ struct GameScreen: View {
                             }
                         }
                         HStack{
-                            if score >= 6{
+                            if score == 6{
                                 NavigationLink(destination: {
                                     FinishScreen()
                                         .navigationBarBackButtonHidden()
@@ -82,7 +83,6 @@ struct GameScreen: View {
                                 })
                             }
                         }
-
                     }
                 }
             }
@@ -100,21 +100,26 @@ struct GameScreen: View {
             cardsFlipped[button] = true
         }
         else{
+            if twoPicked == true{
+                return
+            }
             pickTwo = button
             print("Second is " + ("\(pickTwo)"))
             cardsFlipped[button] = true
+            twoPicked = true
             
-            
-            if emojis[pickOne] == emojis[pickTwo]{
+            if emojis[pickOne] == emojis[pickTwo] {
                 print("true")
                 score += 1
                 firstPicked = false
+                twoPicked = false
             }
             else{
-                DispatchQueue.main.asyncAfter(deadline: .now()+1){
+                DispatchQueue.main.asyncAfter(deadline: .now()+2){
                     cardsFlipped[pickOne] = false
                     cardsFlipped[pickTwo] = false
                     firstPicked = false
+                    twoPicked = false
                 }
 
             }
