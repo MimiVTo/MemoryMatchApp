@@ -15,7 +15,6 @@ struct ContentView: View {
                 ZStack{
                     //Adding the background of the app
                     Image("background")
-                        .navigationBarBackButtonHidden()
                     VStack{
                         //Spacer to keep the space together
                         Spacer()
